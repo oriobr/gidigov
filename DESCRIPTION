@@ -1,0 +1,45 @@
+Package: gidigov
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Jane", "Doe",
+      email = "jane@example.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    data.table,
+    httr2,
+    S7
+RoxygenNote: 7.3.2.9000
+Collate: 
+    'Enum.R'
+    'S7_utils.R'
+    'class_list_of.R'
+    'req.R'
+    'props.R'
+    'get_resps_datastore_search.R'
+    'gidi_city_code.R'
+    'utils.R'
+    'gidi_obj_class.R'
+    'gidi_resource2.R'
+    'gidi_datastore.R'
+    'gidi_datastore_records.R'
+    'gidi_org.R'
+    'gidi_pak.R'
+    'gidi_organization_list.R'
+    'gidi_paks_by_org.R'
+    'gidi_resources_by_pak.R'
+    'gidi_search.R'
+    'gidi_see.R'
+    'gidigov-package.R'
+    'gidigov.R'
+    'is_data_gov_url.R'
+    'process_resps.R'
