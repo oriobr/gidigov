@@ -3,8 +3,21 @@
 
 # Class Definition ------------------------------------------------------------
 
-#' Base class for pak representation
-#' @description Creates a new pak class for the Israeli government data repository
+#' Data Package from data.gov.il
+#'
+#' Represents a dataset package on the Israeli open data portal. Each package
+#' belongs to an organization and may contain multiple resources.
+#'
+#' @slot pak_id Character. Unique package identifier.
+#' @slot pak_heb_name Character. Package name in Hebrew.
+#' @slot pak_eng_name Character. Package name in English (URL slug).
+#' @slot org_heb_name Character. Parent organization name in Hebrew.
+#' @slot org_eng_name Character. Parent organization name in English.
+#'
+#' @family gidi objects
+#' @seealso [list_gidi_pak] for typed lists, [gidi_paks_by_org()] and
+#'   [gidi_search_pak()] to retrieve packages from the API.
+#' @export
 gidi_pak <- S7::new_class(
   "gidi_pak",
   parent = gidi_obj,
@@ -22,9 +35,14 @@ is_gidi_pak <- function(x) {
 }
 
 
-#' List class for holding multiple paks
-#' @description Creates a list class for managing multiple pak objects
+#' Typed List of Package Objects
 #'
+#' A list container that validates all elements are [gidi_pak] objects.
+#' Supports standard subsetting with `[` and `[[`.
+#' Convert to a data frame with [as.data.frame()].
+#'
+#' @family gidi objects
+#' @export
 list_gidi_pak <- new_gidi_objs_list(gidi_pak)
 
 
@@ -55,18 +73,23 @@ S7::method(print, gidi_pak) <- function(x, ...) {
 
 # Constructor Function ------------------------------------------------------
 
-#' Create a new pak object
-#' @param x A named list containing pak data
-#' @return A gidi_pak object
+#' Convert a Named List to a gidi_pak Object
+#'
+#' @param x A named list with fields `pak_id`, `pak_heb_name`,
+#'   `pak_eng_name`, `org_heb_name`, and `org_eng_name`.
+#' @return A [gidi_pak] object.
+#'
 #' @examples
-#' pak_data <- list(
+#' as_gidi_pak(list(
 #'   pak_id = "12345",
-#'   pak_heb_name = "חבילה לדוגמה",
-#'   pak_eng_name = "Example Package",
-#'   org_heb_name = "ארגון לדוגמה",
-#'   org_eng_name = "Example Organization"
-#' )
-#' as_gidi_pak(pak_data)
+#'   pak_heb_name = "חבילה",
+#'   pak_eng_name = "example-package",
+#'   org_heb_name = "ארגון",
+#'   org_eng_name = "example-org"
+#' ))
+#'
+#' @family gidi objects
+#' @export
 as_gidi_pak <- function(x) {
   # Input validation
   stopifnot(

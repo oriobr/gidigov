@@ -1,20 +1,36 @@
-#' Base classes for gidi objects
+#' Base Classes for gidi Objects
 #'
 #' @description
-#' This file defines the base classes and methods for gidi objects:
-#' - gidi_obj: Base class for individual gidi objects
-#' - gidi_objs_list: Base class for lists of gidi objects
+#' Abstract base classes for the gidigov object hierarchy:
+#' - [gidi_obj]: Abstract base for individual entities (organizations,
+#'   packages, resources).
+#' - [gidi_objs_list]: Abstract base for typed lists of gidi objects.
+#'
+#' All gidi objects support [as.data.frame()] and pretty-print methods.
 #'
 #' @name gidi_obj_class
+#' @family gidi objects
 NULL
 
-#' Base class for gidi objects
+#' Abstract Base Class for gidi Objects
+#'
+#' All concrete gidi classes ([gidi_org], [gidi_pak], [gidi_resource])
+#' inherit from this abstract class. It provides shared behaviour such as
+#' [as.data.frame()] conversion.
+#'
+#' @family gidi objects
 #' @export
 gidi_obj <- S7::new_class("gidi_obj",abstract = TRUE)
 
-#' Base class for lists of gidi objects
+#' Abstract Base Class for Lists of gidi Objects
+#'
+#' Typed list container for gidi objects. Concrete list classes
+#' ([list_gidi_org], [list_gidi_pak], [list_gidi_resource]) are created
+#' via [new_gidi_objs_list()]. Supports subsetting with `[` and `[[`
+#' and conversion with [as.data.frame()].
+#'
+#' @family gidi objects
 #' @export
-# gidi_objs_list <- S7::new_class("gidi_objs_list", S7::class_list)
 gidi_objs_list <- S7::new_class("gidi_objs_list", class_list_of)
 
 
@@ -66,12 +82,19 @@ S7::method(print, gidi_objs_list) <- function(x, ...) {
   print(S7::S7_data(x))
 }
 
-#' Convert gidi objects to data frames
+#' Convert gidi Objects to Data Frames
+#'
+#' S7 methods for [as.data.frame()] that convert a single gidi object or a
+#' list of gidi objects into a flat data frame (one row per object).
 #'
 #' @name as.data.frame.gidi
-#' @param x A gidi_obj or gidi_objs_list object
-#' @param ... Additional arguments passed to as.data.frame
-#' @return A data frame representation of the object
+#' @param x A [gidi_obj] or [gidi_objs_list] object.
+#' @param ... Ignored.
+#' @return A data.frame. For [gidi_objs_list], rows are bound with
+#'   `collapse::rowbind(fill = TRUE)` so that different subclasses (e.g.,
+#'   [gidi_org] mixed with [gidi_org_full_info]) are handled gracefully.
+#'
+#' @family gidi objects
 #' @export
 NULL
 

@@ -1,14 +1,27 @@
 #' @include gidi_org.R gidi_pak.R gidi_resource2.R
 
 
-#' Open data.gov.il item in browser
+#' Open a data.gov.il Item in the Browser
 #'
-#' Generic function to open the web page of a data.gov.il item
-#' (package, organization, or resource) in the default web browser.
+#' Opens the web page of a data.gov.il entity (organization, package, or
+#' resource) in the default browser. Works with any gidi object or a
+#' [gidi_objs_list] (opens the first element).
 #'
-#' @param x  `gidi_pak`, `gidi_org`, `gidi_resource`, or `list_gidi_org`
+#' @param x A [gidi_pak], [gidi_org], [gidi_resource], or [gidi_objs_list]
+#'   object.
+#' @return Invisibly returns `NULL`. Called for its side effect (opening
+#'   a URL).
+#'
+#' @examples
+#' \dontrun{
+#' org <- gidi_organization_list()[[1]]
+#' gidi_see(org)
+#'
+#' # Resources also have a shortcut property:
+#' resource@see()
+#' }
+#'
 #' @export
-
 gidi_see <- S7::new_generic("gidi_see", "x")
 
 S7::method(gidi_see, gidi_pak) <-  function(x) {

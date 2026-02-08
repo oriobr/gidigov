@@ -2,9 +2,20 @@
 
 # Class Definitions ------------------------------------------------------------
 
-#' Base class for organization representation
-#' @description Creates a new organization class with basic information
-#' @note All fields are required and must be character strings
+#' Organization from data.gov.il
+#'
+#' Represents a government organization registered on the Israeli open data
+#' portal. Every organization has a unique ID and bilingual names.
+#'
+#' @slot id Character. Unique organization identifier.
+#' @slot eng_name Character. Organization name in English.
+#' @slot heb_name Character. Organization name in Hebrew.
+#'
+#' @family gidi objects
+#' @seealso [gidi_org_full_info] for the extended variant with counts,
+#'   [list_gidi_org] for typed lists, [gidi_organization_list()] to fetch
+#'   organizations from the API.
+#' @export
 gidi_org <- S7::new_class(
   "gidi_org",parent = gidi_obj,
   properties = list(
@@ -14,9 +25,20 @@ gidi_org <- S7::new_class(
   )
 )
 
-#' Extended organization class with additional metrics
-#' @description Extends gidi_org with package and resource information
-#' @note Inherits all properties from gidi_org
+#' Organization with Package and Resource Counts
+#'
+#' Extends [gidi_org] with the number of packages and total resources
+#' published by the organization. Returned by [gidi_organization_list()] when
+#' `names_only = FALSE`.
+#'
+#' @slot id Character. Unique organization identifier.
+#' @slot eng_name Character. Organization name in English.
+#' @slot heb_name Character. Organization name in Hebrew.
+#' @slot packages Numeric. Number of data packages published.
+#' @slot resources Numeric. Total number of resources across all packages.
+#'
+#' @family gidi objects
+#' @export
 gidi_org_full_info <- S7::new_class(
   "gidi_org_full_info",
   parent = gidi_org,
@@ -34,8 +56,14 @@ is_gidi_org <- function(x) {
 
 
 
-#' List class for holding multiple organizations
-#' @description Creates a list class for managing multiple organization objects
+#' Typed List of Organization Objects
+#'
+#' A list container that validates all elements are [gidi_org] (or subclass)
+#' objects. Supports standard subsetting with `[` and `[[`.
+#' Convert to a data frame with [as.data.frame()].
+#'
+#' @family gidi objects
+#' @export
 list_gidi_org <- new_gidi_objs_list(gidi_org)
 is_list_gidi_org <- function(x) {
   S7::S7_inherits(x,list_gidi_org)
@@ -78,17 +106,21 @@ has_exact_names <- function(x_names, expected_names) {
     all(x_names %in% expected_names)
 }
 
-#' Create a new organization object
-#' @param x A named list containing organization data
-#' @return A gidi_org or gidi_org_full_info object
-#' @throws Error if input is not properly named or has invalid structure
+#' Convert a Named List to a gidi_org Object
+#'
+#' Inspects the names of `x` and returns either a [gidi_org] or a
+#' [gidi_org_full_info] object depending on which fields are present.
+#'
+#' @param x A named list. Must contain either `id`, `eng_name`, `heb_name`
+#'   (creates [gidi_org]) or those three plus `packages`, `resources`
+#'   (creates [gidi_org_full_info]).
+#' @return A [gidi_org] or [gidi_org_full_info] object.
+#'
 #' @examples
-#' org_data <- list(
-#'   id = "123",
-#'   eng_name = "Test Org",
-#'   heb_name = "ארגון בדיקה"
-#' )
-#' as_gidi_org(org_data)
+#' as_gidi_org(list(id = "123", eng_name = "Test Org", heb_name = "ארגון"))
+#'
+#' @family gidi objects
+#' @export
 as_gidi_org <- function(x) {
   # Input validation
   stopifnot("'x' must be named" = rlang::is_named(x))
