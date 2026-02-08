@@ -147,7 +147,7 @@ prop_list_of <- function(class, allow_null = FALSE, names = c("any", "all", "non
       class
     }
 
-  check_class <- build_class_check(class)
+  check_class <- function(val) class_checker(val, class)
   force(class_name)
   force(check_class)
 

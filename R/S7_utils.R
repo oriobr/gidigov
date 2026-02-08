@@ -26,7 +26,7 @@ is_S7_core_class <- function(x) {
   inherits(x, c("S7_S3_class","S7_base_class"))
 }
 #---------------
-#' Generic: build_class_check
+#' Generic: class_checker
 #'
 #' Returns a function that checks if a value inherits
 #' from the specified class.
