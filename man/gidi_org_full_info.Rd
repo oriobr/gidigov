@@ -2,7 +2,7 @@
 % Please edit documentation in R/gidi_org.R
 \name{gidi_org_full_info}
 \alias{gidi_org_full_info}
-\title{Extended organization class with additional metrics}
+\title{Organization with Package and Resource Counts}
 \usage{
 gidi_org_full_info(
   id = character(0),
@@ -13,8 +13,36 @@ gidi_org_full_info(
 )
 }
 \description{
-Extends gidi_org with package and resource information
+Extends [gidi_org] with the number of packages and total resources
+published by the organization. Returned by [gidi_organization_list()] when
+`names_only = FALSE`.
 }
-\note{
-Inherits all properties from gidi_org
+\section{Slots}{
+
+\describe{
+\item{\code{id}}{Character. Unique organization identifier.}
+
+\item{\code{eng_name}}{Character. Organization name in English.}
+
+\item{\code{heb_name}}{Character. Organization name in Hebrew.}
+
+\item{\code{packages}}{Numeric. Number of data packages published.}
+
+\item{\code{resources}}{Numeric. Total number of resources across all packages.}
+}}
+
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
 }
+\concept{gidi objects}

@@ -2,18 +2,19 @@
 % Please edit documentation in R/gidigov.R
 \name{data_gov_autocomplete_req}
 \alias{data_gov_autocomplete_req}
-\title{Create autocomplete request for data.gov.il}
+\title{Create an Autocomplete Request for data.gov.il}
 \usage{
 data_gov_autocomplete_req(q, req_type = c("organization", "dataset"))
 }
 \arguments{
-\item{q}{Search query string}
+\item{q}{Character. The search query string.}
 
-\item{req_type}{Character string specifying type ("organization" or "dataset")}
+\item{req_type}{Character. One of `"organization"` or `"dataset"`.}
 }
 \value{
-An httr2 request object
+An [httr2::request] object (not yet performed).
 }
 \description{
-Create autocomplete request for data.gov.il
+Builds an httr2 request targeting the CKAN v2 autocomplete endpoint for
+either organizations or datasets.
 }

@@ -2,10 +2,27 @@
 % Please edit documentation in R/gidi_resource2.R
 \name{list_gidi_resource}
 \alias{list_gidi_resource}
-\title{List class for holding multiple resources}
+\title{Typed List of Resource Objects}
 \usage{
 list_gidi_resource(.data = list())
 }
 \description{
-Creates a list class for managing multiple resource objects
+A list container that validates all elements are [gidi_resource] objects.
+Supports standard subsetting with `[` and `[[`.
+Convert to a data frame with [as.data.frame()].
 }
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()}
+}
+\concept{gidi objects}

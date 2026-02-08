@@ -2,18 +2,26 @@
 % Please edit documentation in R/gidi_search.R
 \name{gidi_search_pak}
 \alias{gidi_search_pak}
-\title{Search for packages in data.gov.il}
+\title{Search for Packages on data.gov.il}
 \usage{
 gidi_search_pak(q, as_data.frame = FALSE)
 }
 \arguments{
-\item{q}{Search query string}
+\item{q}{Character. Search query string.}
 
-\item{as_data.frame}{Boolean, if TRUE returns results as data frame}
+\item{as_data.frame}{Logical. If `TRUE`, returns a data frame; if `FALSE`
+(default), returns a nested [list_gidi_pak].}
 }
 \value{
-List or data frame of matching packages
+A [list_gidi_pak] or a data frame with columns `pak_eng_name` and
+  `pak_heb_name`.
 }
 \description{
-Search for packages in data.gov.il
+Queries the portal's package autocomplete endpoint and returns matching
+packages as [gidi_pak] objects or a data frame.
 }
+\seealso{
+Other search: 
+\code{\link{gidi_search_org}()}
+}
+\concept{search}

@@ -2,10 +2,27 @@
 % Please edit documentation in R/gidi_obj_class.R
 \name{gidi_obj}
 \alias{gidi_obj}
-\title{Base class for gidi objects}
+\title{Abstract Base Class for gidi Objects}
 \usage{
 gidi_obj()
 }
 \description{
-Base class for gidi objects
+All concrete gidi classes ([gidi_org], [gidi_pak], [gidi_resource])
+inherit from this abstract class. It provides shared behaviour such as
+[as.data.frame()] conversion.
 }
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
+}
+\concept{gidi objects}

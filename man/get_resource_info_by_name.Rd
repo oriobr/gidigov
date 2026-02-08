@@ -2,16 +2,25 @@
 % Please edit documentation in R/gidigov.R
 \name{get_resource_info_by_name}
 \alias{get_resource_info_by_name}
-\title{Get resource information by name}
+\title{Look Up Resource Metadata by Name}
 \usage{
 get_resource_info_by_name(database_name)
 }
 \arguments{
-\item{database_name}{Character string of database name}
+\item{database_name}{Character vector of resource names to look up.}
 }
 \value{
-data.table of resource information
+A data.table with one row per name containing resource metadata.
 }
 \description{
-Get resource information by name
+Searches for a resource by its display name using the `package_search`
+endpoint and returns the first matching resource's metadata.
 }
+\seealso{
+Other resource info: 
+\code{\link{get_package_info}()},
+\code{\link{get_resource_id_by_name}()},
+\code{\link{get_resource_info}()},
+\code{\link{get_resource_name}()}
+}
+\concept{resource info}

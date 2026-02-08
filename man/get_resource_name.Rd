@@ -2,16 +2,25 @@
 % Please edit documentation in R/gidigov.R
 \name{get_resource_name}
 \alias{get_resource_name}
-\title{Get resource name by ID}
+\title{Get a Resource's Display Name}
 \usage{
 get_resource_name(resource_id)
 }
 \arguments{
-\item{resource_id}{Character string of resource ID}
+\item{resource_id}{Character string of a single resource ID.}
 }
 \value{
-Character string of resource name
+Character string -- the resource's display name.
 }
 \description{
-Get resource name by ID
+Convenience wrapper around [get_resource_info()] that returns only the
+resource name.
 }
+\seealso{
+Other resource info: 
+\code{\link{get_package_info}()},
+\code{\link{get_resource_id_by_name}()},
+\code{\link{get_resource_info}()},
+\code{\link{get_resource_info_by_name}()}
+}
+\concept{resource info}

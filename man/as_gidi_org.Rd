@@ -2,24 +2,38 @@
 % Please edit documentation in R/gidi_org.R
 \name{as_gidi_org}
 \alias{as_gidi_org}
-\title{Create a new organization object}
+\title{Convert a Named List to a gidi_org Object}
 \usage{
 as_gidi_org(x)
 }
 \arguments{
-\item{x}{A named list containing organization data}
+\item{x}{A named list. Must contain either `id`, `eng_name`, `heb_name`
+(creates [gidi_org]) or those three plus `packages`, `resources`
+(creates [gidi_org_full_info]).}
 }
 \value{
-A gidi_org or gidi_org_full_info object
+A [gidi_org] or [gidi_org_full_info] object.
 }
 \description{
-Create a new organization object
+Inspects the names of `x` and returns either a [gidi_org] or a
+[gidi_org_full_info] object depending on which fields are present.
 }
 \examples{
-org_data <- list(
-  id = "123",
-  eng_name = "Test Org",
-  heb_name = "ארגון בדיקה"
-)
-as_gidi_org(org_data)
+as_gidi_org(list(id = "123", eng_name = "Test Org", heb_name = "ארגון"))
+
 }
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
+}
+\concept{gidi objects}

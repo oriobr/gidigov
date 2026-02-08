@@ -2,28 +2,33 @@
 % Please edit documentation in R/gidi_resource2.R
 \name{as_gidi_resource}
 \alias{as_gidi_resource}
-\title{Create a new resource object}
+\title{Convert a Named List to a gidi_resource Object}
 \usage{
 as_gidi_resource(x)
 }
 \arguments{
-\item{x}{A named list containing resource data}
+\item{x}{A named list with fields `resource_id`, `pak_heb_name`,
+`pak_eng_name`, `resource_heb_name`, `size`, `last_modified`, and
+`created`.}
 }
 \value{
-A gidi_resource object
+A [gidi_resource] object.
 }
 \description{
-Create a new resource object
+Convert a Named List to a gidi_resource Object
 }
-\examples{
-resource_data <- list(
-  resource_id = "56789",
-  pak_heb_name = "חבילה לדוגמה",
-  pak_eng_name = "Example Package",
-  resource_heb_name = "משאב לדוגמה",
-  size = 1024,
-  last_modified = Sys.time(),
-  created = Sys.time()
-)
-as_gidi_resource(resource_data)
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
 }
+\concept{gidi objects}

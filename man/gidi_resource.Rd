@@ -2,7 +2,7 @@
 % Please edit documentation in R/gidi_resource2.R
 \name{gidi_resource}
 \alias{gidi_resource}
-\title{Base class for resource representation}
+\title{Data Resource from data.gov.il}
 \usage{
 gidi_resource(
   resource_id = character(0),
@@ -21,5 +21,46 @@ gidi_resource(
 )
 }
 \description{
-Creates a new resource class for the Israeli government data repository
+Represents a single data resource (e.g., a CSV file or API endpoint)
+within a package on the Israeli open data portal.
 }
+\section{Slots}{
+
+\describe{
+\item{\code{resource_id}}{Character. Unique resource identifier.}
+
+\item{\code{pak_heb_name}}{Character. Parent package name in Hebrew.}
+
+\item{\code{pak_eng_name}}{Character. Parent package name in English.}
+
+\item{\code{resource_heb_name}}{Character. Resource name in Hebrew.}
+
+\item{\code{size}}{Numeric. File size in bytes.}
+
+\item{\code{last_modified}}{POSIXct/Date. When the resource was last updated.}
+
+\item{\code{created}}{POSIXct/Date. When the resource was created.}
+
+\item{\code{see}}{Function. Call `resource@see()` to open the resource page in the
+browser (read-only computed property).}
+}}
+
+\seealso{
+[list_gidi_resource] for typed lists,
+  [gidi_resources_by_pak()] to retrieve resources from the API,
+  [gidi_datastore()] to download the resource's data.
+
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
+}
+\concept{gidi objects}

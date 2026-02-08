@@ -2,16 +2,25 @@
 % Please edit documentation in R/gidigov.R
 \name{get_package_info}
 \alias{get_package_info}
-\title{Get package information}
+\title{Get Package Information}
 \usage{
 get_package_info(package_id)
 }
 \arguments{
-\item{package_id}{Character string of package ID}
+\item{package_id}{Character string of a package ID or English name.}
 }
 \value{
-data.table of active resources in the package
+A [data.table::data.table] of active resources in the package.
 }
 \description{
-Get package information
+Retrieves metadata for all active (datastore-enabled) resources within
+a given package from the `package_show` endpoint.
 }
+\seealso{
+Other resource info: 
+\code{\link{get_resource_id_by_name}()},
+\code{\link{get_resource_info}()},
+\code{\link{get_resource_info_by_name}()},
+\code{\link{get_resource_name}()}
+}
+\concept{resource info}

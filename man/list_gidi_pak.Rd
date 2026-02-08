@@ -2,10 +2,27 @@
 % Please edit documentation in R/gidi_pak.R
 \name{list_gidi_pak}
 \alias{list_gidi_pak}
-\title{List class for holding multiple paks}
+\title{Typed List of Package Objects}
 \usage{
 list_gidi_pak(.data = list())
 }
 \description{
-Creates a list class for managing multiple pak objects
+A list container that validates all elements are [gidi_pak] objects.
+Supports standard subsetting with `[` and `[[`.
+Convert to a data frame with [as.data.frame()].
 }
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_resource}()}
+}
+\concept{gidi objects}

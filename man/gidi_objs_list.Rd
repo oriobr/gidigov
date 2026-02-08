@@ -2,10 +2,28 @@
 % Please edit documentation in R/gidi_obj_class.R
 \name{gidi_objs_list}
 \alias{gidi_objs_list}
-\title{Base class for lists of gidi objects}
+\title{Abstract Base Class for Lists of gidi Objects}
 \usage{
 gidi_objs_list(.data = list())
 }
 \description{
-Base class for lists of gidi objects
+Typed list container for gidi objects. Concrete list classes
+([list_gidi_org], [list_gidi_pak], [list_gidi_resource]) are created
+via [new_gidi_objs_list()]. Supports subsetting with `[` and `[[`
+and conversion with [as.data.frame()].
 }
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
+}
+\concept{gidi objects}

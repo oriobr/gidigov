@@ -2,18 +2,26 @@
 % Please edit documentation in R/gidi_search.R
 \name{gidi_search_org}
 \alias{gidi_search_org}
-\title{Search for organizations in data.gov.il}
+\title{Search for Organizations on data.gov.il}
 \usage{
 gidi_search_org(q, as_data.frame = FALSE)
 }
 \arguments{
-\item{q}{Search query string}
+\item{q}{Character. Search query string.}
 
-\item{as_data.frame}{Boolean, if TRUE returns results as data frame}
+\item{as_data.frame}{Logical. If `TRUE`, returns a data frame; if `FALSE`
+(default), returns a nested [list_gidi_org].}
 }
 \value{
-List or data frame of matching organizations
+A [list_gidi_org] or a data frame with columns `heb_name`,
+  `eng_name`, and `id`.
 }
 \description{
-Search for organizations in data.gov.il
+Queries the portal's organization autocomplete endpoint and returns
+matching organizations as [gidi_org] objects or a data frame.
 }
+\seealso{
+Other search: 
+\code{\link{gidi_search_pak}()}
+}
+\concept{search}

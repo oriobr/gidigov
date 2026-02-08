@@ -2,15 +2,33 @@
 % Please edit documentation in R/gidi_obj_class.R
 \name{as.data.frame.gidi}
 \alias{as.data.frame.gidi}
-\title{Convert gidi objects to data frames}
+\title{Convert gidi Objects to Data Frames}
 \arguments{
-\item{x}{A gidi_obj or gidi_objs_list object}
+\item{x}{A [gidi_obj] or [gidi_objs_list] object.}
 
-\item{...}{Additional arguments passed to as.data.frame}
+\item{...}{Ignored.}
 }
 \value{
-A data frame representation of the object
+A data.frame. For [gidi_objs_list], rows are bound with
+  `collapse::rowbind(fill = TRUE)` so that different subclasses (e.g.,
+  [gidi_org] mixed with [gidi_org_full_info]) are handled gracefully.
 }
 \description{
-Convert gidi objects to data frames
+S7 methods for [as.data.frame()] that convert a single gidi object or a
+list of gidi objects into a flat data frame (one row per object).
 }
+\seealso{
+Other gidi objects: 
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
+}
+\concept{gidi objects}

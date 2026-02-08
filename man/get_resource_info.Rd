@@ -2,22 +2,26 @@
 % Please edit documentation in R/gidigov.R
 \name{get_resource_info}
 \alias{get_resource_info}
-\title{Create an offset request}
+\title{Get Resource Metadata}
 \usage{
 get_resource_info(resource_id)
 }
 \arguments{
-\item{resource_id}{Character vector of resource IDs}
-
-\item{url}{Base URL}
-
-\item{offset}{Offset value for pagination}
+\item{resource_id}{Character vector of resource IDs.}
 }
 \value{
-An httr2 request object
-
-A data.table containing resource information
+A data.frame with one row per resource containing all metadata
+  fields returned by the API (ID, name, format, size, dates, etc.).
 }
 \description{
-Create an offset request
+Retrieves detailed metadata for one or more resources from the
+data.gov.il `resource_show` endpoint. Requests are executed in parallel.
 }
+\seealso{
+Other resource info: 
+\code{\link{get_package_info}()},
+\code{\link{get_resource_id_by_name}()},
+\code{\link{get_resource_info_by_name}()},
+\code{\link{get_resource_name}()}
+}
+\concept{resource info}

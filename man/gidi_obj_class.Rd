@@ -2,9 +2,27 @@
 % Please edit documentation in R/gidi_obj_class.R
 \name{gidi_obj_class}
 \alias{gidi_obj_class}
-\title{Base classes for gidi objects}
+\title{Base Classes for gidi Objects}
 \description{
-This file defines the base classes and methods for gidi objects:
-- gidi_obj: Base class for individual gidi objects
-- gidi_objs_list: Base class for lists of gidi objects
+Abstract base classes for the gidigov object hierarchy:
+- [gidi_obj]: Abstract base for individual entities (organizations,
+  packages, resources).
+- [gidi_objs_list]: Abstract base for typed lists of gidi objects.
+
+All gidi objects support [as.data.frame()] and pretty-print methods.
 }
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_pak}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
+}
+\concept{gidi objects}

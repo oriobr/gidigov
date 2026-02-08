@@ -8,15 +8,16 @@
 S7::method(print, list_gidi_pak) <- function(x, ...) {
   print(S7::S7_data(x))
 }
-Create a new pak object}
+Convert a Named List to a gidi_pak Object}
 \usage{
 as_gidi_pak(x)
 }
 \arguments{
-\item{x}{A named list containing pak data}
+\item{x}{A named list with fields `pak_id`, `pak_heb_name`,
+`pak_eng_name`, `org_heb_name`, and `org_eng_name`.}
 }
 \value{
-A gidi_pak object
+A [gidi_pak] object.
 }
 \description{
 #' Print method for pak list
@@ -25,15 +26,30 @@ A gidi_pak object
 S7::method(print, list_gidi_pak) <- function(x, ...) {
   print(S7::S7_data(x))
 }
-Create a new pak object
+Convert a Named List to a gidi_pak Object
 }
 \examples{
-pak_data <- list(
+as_gidi_pak(list(
   pak_id = "12345",
-  pak_heb_name = "חבילה לדוגמה",
-  pak_eng_name = "Example Package",
-  org_heb_name = "ארגון לדוגמה",
-  org_eng_name = "Example Organization"
-)
-as_gidi_pak(pak_data)
+  pak_heb_name = "חבילה",
+  pak_eng_name = "example-package",
+  org_heb_name = "ארגון",
+  org_eng_name = "example-org"
+))
+
 }
+\seealso{
+Other gidi objects: 
+\code{\link{as.data.frame.gidi}},
+\code{\link{as_gidi_org}()},
+\code{\link{as_gidi_resource}()},
+\code{\link{gidi_obj}()},
+\code{\link{gidi_obj_class}},
+\code{\link{gidi_objs_list}()},
+\code{\link{gidi_org_full_info}()},
+\code{\link{gidi_resource}()},
+\code{\link{list_gidi_org}()},
+\code{\link{list_gidi_pak}()},
+\code{\link{list_gidi_resource}()}
+}
+\concept{gidi objects}

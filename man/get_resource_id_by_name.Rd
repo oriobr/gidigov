@@ -2,16 +2,25 @@
 % Please edit documentation in R/gidigov.R
 \name{get_resource_id_by_name}
 \alias{get_resource_id_by_name}
-\title{Get resource ID by name}
+\title{Get a Resource ID by Name}
 \usage{
 get_resource_id_by_name(database_name)
 }
 \arguments{
-\item{database_name}{Character string of database name}
+\item{database_name}{Character string of the resource name.}
 }
 \value{
-Character string of resource ID
+Character string -- the resource's unique ID.
 }
 \description{
-Get resource ID by name
+Convenience wrapper around [get_resource_info_by_name()] that returns
+only the resource ID.
 }
+\seealso{
+Other resource info: 
+\code{\link{get_package_info}()},
+\code{\link{get_resource_info}()},
+\code{\link{get_resource_info_by_name}()},
+\code{\link{get_resource_name}()}
+}
+\concept{resource info}

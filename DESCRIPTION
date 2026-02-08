@@ -18,7 +18,7 @@ Imports:
     data.table,
     httr2,
     S7
-RoxygenNote: 7.3.2.9000
+RoxygenNote: 7.3.3
 Collate: 
     'Enum.R'
     'S7_utils.R'

@@ -21,6 +21,7 @@ gidi_search_generic(autocomplete_type, fields, rhs, FUN_convert, FUN_as_list)
 A function that performs the search with parameters:
   - q: Search query string
   - as_data.frame: Boolean, if TRUE returns results as data frame instead of nested list
+  @noRd
 }
 \description{
 Generic search function factory for data.gov.il API

@@ -2,7 +2,7 @@
 % Please edit documentation in R/S7_utils.R
 \name{class_checker}
 \alias{class_checker}
-\title{Generic: build_class_check}
+\title{Generic: class_checker}
 \usage{
 class_checker(val, class, ...)
 }
