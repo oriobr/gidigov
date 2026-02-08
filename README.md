@@ -27,6 +27,11 @@ Organization (ארגון)
 
 gidigov mirrors this hierarchy with R objects you can browse interactively.
 
+> **Note:** Currently gidigov only supports resources available through the
+> data.gov.il **API** (datastore). Resources that are only offered as file
+> downloads (e.g. CSV/Excel links without an API endpoint) are not yet
+> supported.
+
 ## The Discovery Pipeline
 
 The core idea of gidigov is a **drill-down workflow**: start at the top,
@@ -92,6 +97,20 @@ org <- gidi_organization_list()$`משטרת ישראל`
 pak <- gidi_paks_by_org(org)$`עבירות פליליות`
 res <- gidi_resources_by_pak(pak)$`עבירות פליליות 2023`
 dt  <- gidi_datastore(res)
+```
+
+Or with R's native pipe:
+
+```r
+library(gidigov)
+
+dt <- gidi_organization_list() |>
+  getElement("משטרת ישראל") |>
+  gidi_paks_by_org() |>
+  getElement("עבירות פליליות") |>
+  gidi_resources_by_pak() |>
+  getElement("עבירות פליליות 2023") |>
+  gidi_datastore()
 ```
 
 You can also skip the discovery and go straight to the data if you already
