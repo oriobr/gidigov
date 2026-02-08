@@ -1,8 +1,6 @@
 # gidigov <img src="man/figures/logo.png" align="right" height="139" />
 
-> Access Israel's government open data from R -- browse, discover, and
-> download datasets from [data.gov.il](https://data.gov.il) without
-> leaving your console.
+> Get data from Israeli data.gov
 
 ## Installation
 
