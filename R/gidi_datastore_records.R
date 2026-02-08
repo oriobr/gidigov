@@ -1,29 +1,5 @@
 
 #--------------------------
-check_resource_id <- S7::new_generic("check_resource_id", "resource_id")
-
-S7::method(check_resource_id, S7::class_character) <-
-  function(resource_id) {
-    if (all_data_gov_url(resource_id)) {
-      url_to_id(resource_id, "resource")
-    } else {
-      resource_id
-    }
-  }
-S7::method(check_resource_id, gidi_resource)  <- function(resource_id) {
-  x <-  S7::prop(resource_id, "resource_id")
-  if (!rlang::is_empty(x)) {
-    return(x)
-  }else {
-    return(S7::prop(resource_id, "pak_eng_name"))
-  }
-}
-S7::method(check_resource_id, list_gidi_resource)  <- function(resource_id) {
-  mapply(check_resource_id,resource_id,USE.NAMES = TRUE)
-}
-
-
-#--------------------------
 fields_classes <-
    NULL | class_list_numeric | class_list_character |
   S7::class_character | S7::class_numeric
@@ -79,7 +55,7 @@ class_filters <-
 
 
 filters_validator <- function(value) {
-  if (!is.null(value) & !is_a_or_list_of(value ,is_atomic_named_list) ) {
+  if (!is.null(value) && !is_a_or_list_of(value ,is_atomic_named_list) ) {
     "must be atomic named list, list of atomic named lists or NULL"
   }
 }
@@ -211,7 +187,7 @@ validate_numeric_fields <- function(fields, col_names) {
   out_of_range <- n_col_names< collapse::fmax(fields)
   if (any(out_of_range)) {
     out_of_range_indx <- paste(which(out_of_range),collapse = ", ")
-    stop(paste0("fields is out of range for resources [", out_of_range, "]"))
+    stop(paste0("fields is out of range for resources [", out_of_range_indx, "]"))
   }
 }
 S7::method(validate_field_selection ,list(S7::class_numeric,S7::class_list)) <-

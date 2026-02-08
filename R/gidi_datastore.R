@@ -248,7 +248,7 @@ get_resource_records <- function(resource_id, limit, fields, filters,offset_list
 #'
 #' # Limit number of rows and keep original column names
 #' data <- gidi_datastore("abc123", max_row = 1000, fix_names = FALSE)
-gidi_datastore <- function(resource_id, fields = NULL, add_name = TRUE, limit = NULL,max_row = NULL,fix_names = TRUE) {
+gidi_datastore <- function(resource_id, fields = NULL, filters = NULL, add_name = TRUE, limit = NULL,max_row = NULL,fix_names = TRUE) {
 
   limit <- limit %||% 32000
   max_row %|!|% {limit <- min(limit,max_row)}
@@ -263,13 +263,13 @@ gidi_datastore <- function(resource_id, fields = NULL, add_name = TRUE, limit = 
       add_name <- TRUE
     }
   }
-  resource_base_info <-  get_resource_base_info(resource_id)
+  resource_base_info <-  get_resource_base_info(resource_id, filters)
   col_names <-  resource_col_names(resource_base_info,fix_names)
   n_rows <- resource_nrows(resource_base_info,max_row)
   offset_list <- Map(seq_offset,limit =  limit,total = n_rows)
   offset_list <- class_list_numeric(offset_list)
 
-  records <- get_resource_records(resource_id, limit, fields, offset_list)
+  records <- get_resource_records(resource_id, limit, fields, filters, offset_list)
   records <- Map(read_records,records,col_names)
   records <- Map(collapse::qDT, records)
 
