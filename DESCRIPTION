@@ -43,3 +43,5 @@ Collate:
     'gidigov.R'
     'is_data_gov_url.R'
     'process_resps.R'
+URL: https://github.com/oriobr/gidigov
+BugReports: https://github.com/oriobr/gidigov/issues
