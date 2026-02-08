@@ -6,8 +6,26 @@
 class_date <- S7::class_Date | S7::class_POSIXct | S7::class_POSIXlt
 
 
-#' Base class for resource representation
-#' @description Creates a new resource class for the Israeli government data repository
+#' Data Resource from data.gov.il
+#'
+#' Represents a single data resource (e.g., a CSV file or API endpoint)
+#' within a package on the Israeli open data portal.
+#'
+#' @slot resource_id Character. Unique resource identifier.
+#' @slot pak_heb_name Character. Parent package name in Hebrew.
+#' @slot pak_eng_name Character. Parent package name in English.
+#' @slot resource_heb_name Character. Resource name in Hebrew.
+#' @slot size Numeric. File size in bytes.
+#' @slot last_modified POSIXct/Date. When the resource was last updated.
+#' @slot created POSIXct/Date. When the resource was created.
+#' @slot see Function. Call `resource@see()` to open the resource page in the
+#'   browser (read-only computed property).
+#'
+#' @family gidi objects
+#' @seealso [list_gidi_resource] for typed lists,
+#'   [gidi_resources_by_pak()] to retrieve resources from the API,
+#'   [gidi_datastore()] to download the resource's data.
+#' @export
 gidi_resource <- S7::new_class(
   "gidi_resource",
   parent = gidi_obj,
@@ -34,8 +52,14 @@ is_gidi_resource <- function(x) {
 
 
 
-#' List class for holding multiple resources
-#' @description Creates a list class for managing multiple resource objects
+#' Typed List of Resource Objects
+#'
+#' A list container that validates all elements are [gidi_resource] objects.
+#' Supports standard subsetting with `[` and `[[`.
+#' Convert to a data frame with [as.data.frame()].
+#'
+#' @family gidi objects
+#' @export
 list_gidi_resource <- new_gidi_objs_list(gidi_resource)
 
 is_list_gidi_resource <- function(x) {
@@ -69,20 +93,15 @@ S7::method(print, gidi_resource) <- function(x, ...) {
 
 # Constructor Function ------------------------------------------------------
 
-#' Create a new resource object
-#' @param x A named list containing resource data
-#' @return A gidi_resource object
-#' @examples
-#' resource_data <- list(
-#'   resource_id = "56789",
-#'   pak_heb_name = "חבילה לדוגמה",
-#'   pak_eng_name = "Example Package",
-#'   resource_heb_name = "משאב לדוגמה",
-#'   size = 1024,
-#'   last_modified = Sys.time(),
-#'   created = Sys.time()
-#' )
-#' as_gidi_resource(resource_data)
+#' Convert a Named List to a gidi_resource Object
+#'
+#' @param x A named list with fields `resource_id`, `pak_heb_name`,
+#'   `pak_eng_name`, `resource_heb_name`, `size`, `last_modified`, and
+#'   `created`.
+#' @return A [gidi_resource] object.
+#'
+#' @family gidi objects
+#' @export
 as_gidi_resource <- function(x) {
   do.call(gidi_resource, x)
 }

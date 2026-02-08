@@ -222,32 +222,55 @@ get_resource_records <- function(resource_id, limit, fields, filters,offset_list
 
 
 
-#' Retrieve data from data.gov.il datastore
+#' Download Data from the data.gov.il Datastore
 #'
-#' This function retrieves data from the data.gov.il datastore API, handling pagination
-#' and multiple resources. It supports retrieving specific fields, naming results,
-#' and limiting the number of records returned.
+#' The main data retrieval function. Downloads records from one or more
+#' resources in the data.gov.il datastore, with automatic pagination,
+#' optional field selection, filtering, and column name normalization.
 #'
-#' @param resource_id Character vector of resource IDs or named list
-#' @param fields Character vector of fields to retrieve (NULL for all fields)
-#' @param add_name Logical or character vector for naming results
-#' @param limit Maximum number of records per request (default: 32000)
-#' @param max_row Maximum total number of rows to retrieve (NULL for all rows)
-#' @param fix_names Logical; whether to convert column names to snake_case (default: TRUE)
-#' @return A data.table or list of data.tables containing the requested data
+#' @param resource_id Resource identifier(s). Accepts a character vector of
+#'   IDs, a [gidi_resource] object, a [list_gidi_resource], or data.gov.il
+#'   URLs. Use a named vector to label the results
+#'   (e.g., `c(crimes = "id1", traffic = "id2")`).
+#' @param fields Character or numeric vector of fields to retrieve.
+#'   `NULL` (default) returns all fields. When querying multiple resources,
+#'   pass a list of vectors for per-resource field selection.
+#' @param filters A named list of filter conditions applied server-side
+#'   (e.g., `list(city = "Jerusalem")`). For multiple resources with
+#'   different filters, pass a list of named lists.
+#' @param add_name Controls result naming when multiple resources are queried.
+#'   `TRUE` (default) fetches display names from the API; `FALSE` leaves
+#'   results unnamed; a character vector assigns custom names.
+#' @param limit Maximum records per API request (default/max: 32000).
+#'   Pagination is handled automatically.
+#' @param max_row Maximum total rows to return. `NULL` (default) returns all.
+#' @param fix_names If `TRUE` (default), column names are converted to
+#'   snake_case via [snakecase::to_snake_case()].
+#'
+#' @return A [data.table::data.table] for a single resource, or a named list
+#'   of data.tables for multiple resources.
+#'
+#' @family data retrieval
+#' @seealso [gidi_resources_by_pak()] to discover resource IDs.
 #' @export
+#'
 #' @examples
-#' # Get all data from a single resource
-#' data <- gidi_datastore("abc123")
+#' \dontrun{
+#' # Single resource
+#' dt <- gidi_datastore("abc123")
 #'
-#' # Get specific fields from multiple resources
-#' data <- gidi_datastore(c("abc123", "def456"), fields = c("field1", "field2"))
+#' # Select specific fields and filter
+#' dt <- gidi_datastore("abc123",
+#'   fields = c("name", "date"),
+#'   filters = list(city = "Jerusalem")
+#' )
 #'
-#' # Get data with custom names for results
-#' data <- gidi_datastore(c(dataset1 = "abc123", dataset2 = "def456"))
+#' # Multiple resources with custom names
+#' dts <- gidi_datastore(c(crimes = "abc123", traffic = "def456"))
 #'
-#' # Limit number of rows and keep original column names
-#' data <- gidi_datastore("abc123", max_row = 1000, fix_names = FALSE)
+#' # Limit rows, keep original column names
+#' dt <- gidi_datastore("abc123", max_row = 1000, fix_names = FALSE)
+#' }
 gidi_datastore <- function(resource_id, fields = NULL, filters = NULL, add_name = TRUE, limit = NULL,max_row = NULL,fix_names = TRUE) {
 
   limit <- limit %||% 32000

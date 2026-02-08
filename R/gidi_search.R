@@ -60,11 +60,19 @@ gidi_search_generic <- function(autocomplete_type, fields, rhs,
   }
 }
 
-#' Search for packages in data.gov.il
+#' Search for Packages on data.gov.il
 #'
-#' @param q Search query string
-#' @param as_data.frame Boolean, if TRUE returns results as data frame
-#' @return List or data frame of matching packages
+#' Queries the portal's package autocomplete endpoint and returns matching
+#' packages as [gidi_pak] objects or a data frame.
+#'
+#' @param q Character. Search query string.
+#' @param as_data.frame Logical. If `TRUE`, returns a data frame; if `FALSE`
+#'   (default), returns a nested [list_gidi_pak].
+#' @return A [list_gidi_pak] or a data frame with columns `pak_eng_name` and
+#'   `pak_heb_name`.
+#'
+#' @family search
+#' @export
 gidi_search_pak <- gidi_search_generic(
   autocomplete_type = "package_autocomplete",
   fields = c(pak_eng_name = "name", pak_heb_name = "title"),
@@ -73,11 +81,19 @@ gidi_search_pak <- gidi_search_generic(
   FUN_as_list = list_gidi_pak
 )
 
-#' Search for organizations in data.gov.il
+#' Search for Organizations on data.gov.il
 #'
-#' @param q Search query string
-#' @param as_data.frame Boolean, if TRUE returns results as data frame
-#' @return List or data frame of matching organizations
+#' Queries the portal's organization autocomplete endpoint and returns
+#' matching organizations as [gidi_org] objects or a data frame.
+#'
+#' @param q Character. Search query string.
+#' @param as_data.frame Logical. If `TRUE`, returns a data frame; if `FALSE`
+#'   (default), returns a nested [list_gidi_org].
+#' @return A [list_gidi_org] or a data frame with columns `heb_name`,
+#'   `eng_name`, and `id`.
+#'
+#' @family search
+#' @export
 gidi_search_org <- gidi_search_generic(
   autocomplete_type = "organization_autocomplete",
   fields = c(heb_name = "title", eng_name = "name", id = "id"),
