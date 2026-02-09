@@ -125,7 +125,7 @@ S7::method(check_pak_id, S7::class_list)  <- function(pak_id) {
 #' # Get resources as data frame
 #' resources_df <- gidi_resources_by_package("package123", as_data.frame = TRUE)
 gidi_resources_by_pak <- function(package_id, as_data.frame = FALSE) {
-  package_id <- check_pak_id(as.list(package_id))
+  package_id <- check_pak_id(package_id)
   # Make API requests
   resps <-
     Map(req_package_show, package_id) |>
@@ -135,12 +135,13 @@ gidi_resources_by_pak <- function(package_id, as_data.frame = FALSE) {
   query_package <- c(
     package_title = "/result/title",
     package_name = "/result/name",
-    resources = "/result/resources"
+    resources = "/result/resources",
+    org_eng_name =  "/result/organization/name"
   )
 
   # Extract response information
   resps_info <- extract_resps_info(resps, query_package)
-  package_name <- extract_fields(resps_info, c("package_title", "package_name"))
+  package_name <- extract_fields(resps_info, c("package_title", "package_name","org_eng_name"))
   resources <- collapse::get_elem(resps_info, "resources")
   single_resource  <- is.data.frame(resources)
 
@@ -153,6 +154,7 @@ gidi_resources_by_pak <- function(package_id, as_data.frame = FALSE) {
     pak_heb_name = "package_title",
     pak_eng_name = "package_name",
     resource_heb_name = "name",
+    "org_eng_name",
     "created",
     "size",
     "last_modified"

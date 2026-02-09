@@ -34,6 +34,7 @@ gidi_resource <- S7::new_class(
     pak_heb_name = S7::class_character,
     pak_eng_name = S7::class_character,
     resource_heb_name = S7::class_character,
+    org_eng_name = S7::class_character,
     size = S7::class_numeric,
     last_modified = class_date,
     created = class_date,
@@ -106,6 +107,54 @@ as_gidi_resource <- function(x) {
   do.call(gidi_resource, x)
 }
 
+
+#' Check and validate resources ID
+#'
+#' @param resource_id resources ID to validate. Can be character string, gidi_resource object,
+#'        or list of gidi_resource objects
+#' @return Validated resources ID(s)
+#' @noRd
+check_resource_id <- S7::new_generic("check_resource_id", "resource_id")
+
+#' Method for character input
+#'
+#' @param resource_id Character string of resources ID
+#' @return If empty string, returns list of all org names, otherwise returns resource_id
+#' @noRd
+S7::method(check_resource_id, S7::class_character) <-
+  function(resource_id) {
+    if (all_data_gov_url(resource_id)) {
+      url_to_id(resource_id, "resource")
+    } else {
+      resource_id
+    }
+  }
+
+#' Method for gidi_resource object
+#'
+#' @param resource_id gidi_resource object
+#' @return resources ID extracted from object
+#' @noRd
+S7::method(check_resource_id, gidi_resource)  <- function(resource_id) {
+  x <-  S7::prop(resource_id, "resource_id")
+  if (!rlang::is_empty(x)) {
+    return(x)
+  }else {
+    return(S7::prop(resource_id, "pak_eng_name"))
+  }
+}
+#' Method for list of gidi_resource objects
+#'
+#' @param resource_id List of gidi_resource objects
+#' @return Vector of resources IDs extracted from objects
+#' @noRd
+S7::method(check_resource_id, list_gidi_resource)  <- function(resource_id) {
+  mapply(check_resource_id,resource_id,USE.NAMES = TRUE)
+}
+
+S7::method(check_resource_id, S7::class_list)  <- function(resource_id) {
+  sapply(resource_id, check_pak_id, USE.NAMES = FALSE)
+}
 
 
 

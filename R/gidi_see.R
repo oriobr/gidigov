@@ -25,7 +25,7 @@
 gidi_see <- S7::new_generic("gidi_see", "x")
 
 S7::method(gidi_see, gidi_pak) <-  function(x) {
-  url <-  stringi::stri_join("https://data.gov.il/dataset/", x@pak_eng_name)
+  url <-  stringi::stri_join("https://data.gov.il/datasets/",x@org_eng_name ,"/",x@pak_eng_name)
   utils::browseURL(url)
 }
 
@@ -35,12 +35,12 @@ S7::method(gidi_see, gidi_org) <-  function(x) {
 }
 
 S7::method(gidi_see, gidi_resource) <-  function(x) {
-  url <-  stringi::stri_join("https://data.gov.il/dataset/",
-                             x@pak_eng_name,
-                             "/resource/",
+  url <-  stringi::stri_join("https://data.gov.il/datasets/",
+                             x@org_eng_name ,"/",x@pak_eng_name,"/",
                              x@resource_id)
   utils::browseURL(url)
 }
+
 
 S7::method(gidi_see, gidi_objs_list) <-  function(x) {
   if (!rlang::is_scalar_list(x)) {

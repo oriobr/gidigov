@@ -23,7 +23,7 @@ fields_setter <- function(self, value) {
 }
 
 fields_validator <- S7::new_generic("fields_validator","value",function(value) {
-  S7_dispatch()
+  S7::S7_dispatch()
 })
 S7::method(fields_validator,S7::class_any) <- function(value){
  "`fields` must be character, numeric, list of them, or NULL."
