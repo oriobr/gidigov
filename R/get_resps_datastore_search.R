@@ -1,6 +1,18 @@
 #' @include props.R
 #' @include req.R
 
+# ============================================================
+# S7 class hierarchy for building datastore API requests
+# ============================================================
+# Three-level chain:
+#   req_datastore_args      -- holds and validates query parameters
+#     -> req_datastore_builder  -- splits params into dots/MoreArgs for .mapply()
+#       -> resps_datastore_search -- adds @perform() to execute requests in parallel
+#
+# The builder pattern separates *what* to query from *how* to execute,
+# and the computed properties (@dots, @MoreArgs, @build_requests, @perform)
+# mean the actual HTTP calls are deferred until explicitly triggered.
+
 req_datastore_args <- S7::new_class(
   name = "req_datastore_args",
   properties = list(
@@ -32,6 +44,11 @@ req_datastore_args <- S7::new_class(
 )
 
 
+# req_datastore_builder splits parameters for .mapply():
+#  - @dots: per-resource arguments (vary across resources) -- vectorised
+#  - @MoreArgs: shared arguments (same for every resource) -- recycled
+# List-type params (e.g. per-resource field lists) go in dots;
+# scalar/atomic params go in MoreArgs.
 req_datastore_builder <- S7::new_class(
   name = "req_datastore_builder",
   parent = req_datastore_args,
@@ -86,8 +103,8 @@ req_datastore_builder <- S7::new_class(
 )
 
 
-#----------------------------
-
+# Final layer: adds @perform() -- a computed getter that returns a
+# closure which calls httr2::req_perform_parallel() on the built requests.
 resps_datastore_search <-
   S7::new_class(
     "resps_datastore_search",

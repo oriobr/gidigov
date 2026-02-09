@@ -37,6 +37,9 @@ gidi_resource <- S7::new_class(
     size = S7::class_numeric,
     last_modified = class_date,
     created = class_date,
+    # Computed (read-only) property: returns a closure that opens the
+    # resource page in the browser. Usage: resource@see()
+    # The getter creates a fresh function each time that captures `self`.
     see = S7::new_property(
       S7::class_function,
       getter = function(self) {function(){gidi_see(self)}})

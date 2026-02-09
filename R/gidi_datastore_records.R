@@ -1,5 +1,10 @@
+# ============================================================
+# Field type coercion
+# ============================================================
+# `fields` can be specified in many ways: a character vector of names,
+# a numeric vector of column indices, a list of either, or NULL (all fields).
+# This union type + generic normalises whatever the user passes.
 
-#--------------------------
 fields_classes <-
    NULL | class_list_numeric | class_list_character |
   S7::class_character | S7::class_numeric
@@ -33,7 +38,12 @@ S7::method(fields_validator,fields_classes) <- function(value){
 }
 
 
-#---------
+# ============================================================
+# Custom setters for S7 properties
+# ============================================================
+# S7 setters run every time a property is assigned. They allow us to
+# normalise or constrain values automatically. For example, the limit
+# setter caps the value at max_row if one is set.
 
 limit_setter <- function(self, value) {
   value <- value %||% 32000
@@ -96,7 +106,14 @@ compare_filters_fields <- function(filters_names, fields) {
   }
 }
 
-#------------------------------
+# ============================================================
+# gidi_datastore_args -- validated parameter container
+# ============================================================
+# This S7 class holds all the arguments for a datastore query.
+# Custom setters normalise inputs (e.g. resolve URLs to IDs,
+# coerce filters to class_filters). The class-level validator
+# checks cross-field constraints (e.g. filter names must be
+# a subset of field names).
 gidi_datastore_args <-
   S7::new_class(
   "gidi_datastore_args",
@@ -174,7 +191,13 @@ gidi_datastore_args <-
 
 
 
-# validate_field_selection -----------------------
+# ============================================================
+# validate_field_selection -- match requested fields to actual columns
+# ============================================================
+# Dispatches on the type of `fields` (NULL, numeric indices,
+# character names, or lists thereof) and validates them against
+# the actual column names returned by the API. Returns a list
+# with normalised `fields` and `col_names`.
 validate_field_selection  <-
   S7::new_generic("validate_field_selection", c("fields","col_names"))
 
@@ -243,7 +266,14 @@ S7::method(validate_field_selection ,list(S7::class_character,S7::class_list)) <
   return(list(fields = fields, col_names = col_names))
 }
 
-#-------------------------
+# ============================================================
+# gidi_datastore_base_info -- lazy metadata fetcher
+# ============================================================
+# Inherits from gidi_datastore_args. The `base_info` setter uses
+# a "set-once" pattern: the first time it is assigned, it fetches
+# column names and row counts from the API, validates field
+# selection, and populates derived properties (col_names, n_rows).
+# Subsequent assignments are no-ops (the data is already loaded).
 gidi_datastore_base_info <-
   S7::new_class(
     "gidi_datastore_base_info",
@@ -301,8 +331,13 @@ gidi_datastore_base_info <-
 
 
 
-#---------------------------
-
+# ============================================================
+# gidi_datastore_records -- the final class in the chain
+# ============================================================
+# Inherits: gidi_datastore_args -> gidi_datastore_base_info -> this.
+# The `records` property is a computed getter: accessing @records
+# triggers the actual HTTP requests, downloads paginated CSV data,
+# and returns data.table(s). This is the engine behind gidi_datastore2().
 gidi_datastore_records <-
   S7::new_class(
     "gidi_datastore_records",
