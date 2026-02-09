@@ -99,18 +99,14 @@ res <- gidi_resources_by_pak(pak)$`עבירות פליליות 2023`
 dt  <- gidi_datastore(res)
 ```
 
-Or with R's native pipe:
+Or with R's native pipe (`|>`):
 
 ```r
-library(gidigov)
+org <- gidi_organization_list()$`משטרת ישראל`
 
-dt <- gidi_organization_list() |>
-  getElement("משטרת ישראל") |>
+org |>
   gidi_paks_by_org() |>
-  getElement("עבירות פליליות") |>
-  gidi_resources_by_pak() |>
-  getElement("עבירות פליליות 2023") |>
-  gidi_datastore()
+  as.data.frame()
 ```
 
 You can also skip the discovery and go straight to the data if you already
