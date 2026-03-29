@@ -1,8 +1,6 @@
 # gidigov <img src="man/figures/logo.png" align="right" height="139" />
 
-> Access Israel's government open data from R -- browse, discover, and
-> download datasets from [data.gov.il](https://data.gov.il) without
-> leaving your console.
+> Get data from Israeli data.gov
 
 ## Installation
 
@@ -28,6 +26,11 @@ Organization (ארגון)
 ```
 
 gidigov mirrors this hierarchy with R objects you can browse interactively.
+
+> **Note:** Currently gidigov only supports resources available through the
+> data.gov.il **API** (datastore). Resources that are only offered as file
+> downloads (e.g. CSV/Excel links without an API endpoint) are not yet
+> supported.
 
 ## The Discovery Pipeline
 
@@ -94,6 +97,16 @@ org <- gidi_organization_list()$`משטרת ישראל`
 pak <- gidi_paks_by_org(org)$`עבירות פליליות`
 res <- gidi_resources_by_pak(pak)$`עבירות פליליות 2023`
 dt  <- gidi_datastore(res)
+```
+
+Or with R's native pipe (`|>`):
+
+```r
+org <- gidi_organization_list()$`משטרת ישראל`
+
+org |>
+  gidi_paks_by_org() |>
+  as.data.frame()
 ```
 
 You can also skip the discovery and go straight to the data if you already

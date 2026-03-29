@@ -34,6 +34,10 @@ gidi_obj <- S7::new_class("gidi_obj",abstract = TRUE)
 gidi_objs_list <- S7::new_class("gidi_objs_list", class_list_of)
 
 
+# Subsetting a gidi_objs_list with `[` should return another gidi_objs_list
+# of the same concrete class (e.g. list_gidi_org), not a plain list.
+# copyMostAttrib copies the S7 class attributes from the original object
+# onto the sliced result so the type is preserved.
 S7::method(`[`, gidi_objs_list) <- function(object, ...) {
   collapse::copyMostAttrib(S7::S7_data(object)[...],object)
 }
@@ -53,7 +57,11 @@ S7::method(`[`, gidi_objs_list) <- function(object, ...) {
 #' # Create a new class for lists of gidi_pak objects
 #' list_gidi_pak <- new_gidi_objs_list(gidi_pak)
 new_gidi_objs_list <- function(gidi_obj_class) {
+  # force() ensures the class argument is evaluated now rather than lazily,
+  # which is critical because new_class() captures it in a closure (the validator).
   force(gidi_obj_class)
+  # deparse(substitute(...)) captures the *name* of the class as passed by the
+  # caller (e.g. "gidi_pak"), used to generate a readable class name like "list_gidi_pak".
   class_name <- deparse(substitute(gidi_obj_class))
   force(class_name)
   class_list_name <- paste0("list_", class_name)

@@ -22,6 +22,8 @@ S7::method(print, class_list_of) <- function(x, ...) {
   print(S7::S7_data(x), ...)
 }
 
+# S7 wraps the underlying list inside the object. S7_data() extracts
+# the raw list so standard R subsetting operators work as expected.
 #' Subset operator for class_list_of
 S7::method(`[`, class_list_of) <- function(object, ...) {
   S7::S7_data(object)[...]
@@ -45,12 +47,15 @@ S7::method(`[[<-`, class_list_of) <- function(object, ..., value) {
 
 
 
-#-------------------
-
-
 # ============================================================
 # Factory: Create a new class_list_of subclass
 # ============================================================
+# This is a *class factory* pattern: new_class_list_of() generates a
+# new S7 class at runtime. For example:
+#   class_list_numeric <- new_class_list_of(S7::class_numeric)
+# produces a class that behaves like a regular list but validates
+# that every element is numeric. The validator is baked into the
+# class definition via a closure that captures `class`.
 
 #' Create a new S7 class for lists of a specific class
 #'
@@ -141,7 +146,12 @@ as_list_character <- function(x, check = TRUE) {
   return(x)
 }
 
-#--------------
+# ============================================================
+# can_be_list_of -- non-throwing type check for lists
+# ============================================================
+# Unlike validators (which throw errors), can_be_list_of returns
+# TRUE/FALSE. Dispatches on both `x` (must be a list) and `class`
+# (the target element type) to pick the right checking strategy.
 
 can_be_list_of <- S7::new_generic("can_be_list_of",c("x","class"))
 S7::method(
